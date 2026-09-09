@@ -190,10 +190,11 @@ let choix ;
 // initialiser prompt 
 const prompt = require("prompt-sync")() ;
 
-
+// fonction pour afficher tous les trajets disponibles
 function AfficherTrajets(){
     console.log("                                             ");
     console.log("        === TRAJETS DISPONIBLES ===        ");
+    console.log("                                             ");
 
     for(let x of trips){
         console.log(`# ${x.id} ${x.departure} --> ${x.destination}`);
@@ -203,6 +204,62 @@ function AfficherTrajets(){
         console.log(`Places disponibles : ${x.availableSeats}`);
         console.log("                                             ");
     }
+    
+}
+
+
+// une fonction pour trouver le numero de place
+function getNumPlace(IdT){
+    let count = 0 ;
+    for(let t of tickets){
+        if(t.tripId === IdT) count ++ ;
+    }
+    return count ;
+}
+
+
+// une fonction pour acheter un ticket
+function AcheterTicket(){
+    let nom = prompt("entrer votre nom :")
+    let IdT = Number(prompt("entrer Identifiant du trajet :"))
+    let ticket = {} ;
+    let isExist = false ;
+
+    for(let x of trips){
+        if(x.id === IdT){
+            if(0 < x.availableSeats){
+                ticket.id = tickets.length + 1
+                ticket.passengerName = nom 
+                ticket.tripId = IdT 
+                ticket.seatNumber = getNumPlace(IdT) + 1 
+                ticket.price = x.price
+
+                tickets.push(ticket)
+
+                x.availableSeats -- 
+                
+                console.log("Ticket acheté avec succès.");
+                console.log("                           ");
+                console.log(`Ticket #${ticket.id}`);
+                console.log(`Passager : ${ticket.passengerName}`);
+                console.log(`Trajet : ${x.departure} --> ${x.destination}`);
+                console.log(`Place : ${ticket.seatNumber}`);
+                console.log(`Prix : ${ticket.price} DH`);
+                console.log(x.availableSeats );
+                
+
+                isExist = true ;
+                
+                break
+            }else{
+                console.log("Train complet.");
+                
+            }
+        }
+    }
+
+    if(!isExist) console.log("Trajet introuvable.");
+    
     
 }
 
@@ -230,7 +287,7 @@ do {
             AfficherTrajets();
             break;
         case 2:
-            console.log("Acheter un ticket");
+            AcheterTicket();
             break;
         case 3:
         console.log("Afficher les tickets");
