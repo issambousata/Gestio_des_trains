@@ -281,7 +281,7 @@ function AfficherTickets(){
     if(0 < tickets.length){
         console.log("     === TICKETS ===     ");
     }else{
-        console.log("il n'y a aucun ticket disponible");
+        console.log("Aucun ticket enregistré.");
     }
 
     for(let t of tickets){
@@ -296,8 +296,37 @@ function AfficherTickets(){
         console.log(`Prix : ${t.price} DH`);                
 
     }
-    
-    
+}
+
+
+function AnnulerTicket(){
+    let IdT = Number(prompt("Identifiant du ticket : "))
+    let isExist = false ;
+
+    for(let t of tickets){
+        if(t.id === IdT){
+            let indexT = tickets.findIndex(ticket => ticket.id === t.id)
+            tickets.splice(indexT,1)
+            for(let i=indexT ;i<tickets.length ; i++){
+                tickets[i].id -- 
+                tickets[i].seatNumber --
+            } 
+
+            let index = trips.findIndex(trip => trip.id === t.tripId)
+            trips[index].availableSeats ++
+
+            console.log("             ");
+            console.log("Identifiant du ticket : ",t.id);
+            console.log("             ");
+            console.log("Ticket annulé avec succès.");
+
+            isExist = true ;
+
+            break
+        }
+    }
+
+    if(!isExist) console.log("Ticket introuvable.");
 }
 
 // afficher le menu 
@@ -330,7 +359,7 @@ do {
         AfficherTickets();
             break;
         case 4:
-        console.log("Annuler un ticket");
+        AnnulerTicket();
             break;
         case 5:
         console.log("Rechercher un ticket");
