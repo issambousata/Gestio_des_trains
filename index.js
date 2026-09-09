@@ -244,9 +244,7 @@ function AcheterTicket(){
                 console.log(`Passager : ${ticket.passengerName}`);
                 console.log(`Trajet : ${x.departure} --> ${x.destination}`);
                 console.log(`Place : ${ticket.seatNumber}`);
-                console.log(`Prix : ${ticket.price} DH`);
-                console.log(x.availableSeats );
-                
+                console.log(`Prix : ${ticket.price} DH`);                
 
                 isExist = true ;
                 
@@ -259,6 +257,45 @@ function AcheterTicket(){
     }
 
     if(!isExist) console.log("Trajet introuvable.");
+    
+    
+}
+
+// une fonction pour trouver une trajet de chaque ticket 
+function getTrajet(id){
+    let departure ;
+    let destination ;
+    for(let tr of trips){
+        if(tr.id === id){
+            departure = tr.departure ;
+            destination = tr.destination ;
+        }
+    }
+
+    return {departure : departure , destination : destination}
+}
+
+// une fonction pour afficher les tickets disponibles
+function AfficherTickets(){
+    console.log("                         ");
+    if(0 < tickets.length){
+        console.log("     === TICKETS ===     ");
+    }else{
+        console.log("il n'y a aucun ticket disponible");
+    }
+
+    for(let t of tickets){
+
+        console.log("                ");
+        console.log(`Ticket #${t.id}`);
+        console.log(`Passager : ${t.passengerName}`);
+        let departure = getTrajet(t.tripId).departure 
+        let destination = getTrajet(t.tripId).destination
+        console.log(`Trajet : ${departure} --> ${destination}`);
+        console.log(`Place : ${t.seatNumber}`);
+        console.log(`Prix : ${t.price} DH`);                
+
+    }
     
     
 }
@@ -290,7 +327,7 @@ do {
             AcheterTicket();
             break;
         case 3:
-        console.log("Afficher les tickets");
+        AfficherTickets();
             break;
         case 4:
         console.log("Annuler un ticket");
