@@ -190,6 +190,22 @@ let choix ;
 // initialiser prompt 
 const prompt = require("prompt-sync")() ;
 
+
+function AfficherTrajets(){
+    console.log("                                             ");
+    console.log("        === TRAJETS DISPONIBLES ===        ");
+
+    for(let x of trips){
+        console.log(`# ${x.id} ${x.departure} --> ${x.destination}`);
+        console.log(`Départ : ${x.departureTime}`);
+        console.log(`Arrivée  : ${x.arrivalTime}`);
+        console.log(`Prix  : ${x.price} DH`);
+        console.log(`Places disponibles : ${x.availableSeats}`);
+        console.log("                                             ");
+    }
+    
+}
+
 // afficher le menu 
 do {
     
@@ -211,7 +227,7 @@ do {
     
     switch (choix) {
         case 1:
-            console.log("Afficher les trajets");
+            AfficherTrajets();
             break;
         case 2:
             console.log("Acheter un ticket");
