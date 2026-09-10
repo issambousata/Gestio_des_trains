@@ -354,6 +354,27 @@ function  RechercherTicket(){
     if (!isExist) console.log("il n'y a aucun ticket avec ce nom de passager");
 }
 
+
+// une fonction pour Filtrer les trajets à partir de la ville de départ
+function FiltrerTrajets(){
+    const ville = prompt("Ville de départ : ")
+    let isExist = false ;
+
+    console.log("       -----------------------           ");
+    
+    for(let T of trips){
+        if(T.departure === ville){
+            console.log(`${T.departure} --> ${T.destination} : ${T.price} DH`);
+            isExist = true
+        }
+    }
+
+    if(!isExist) console.log("il y a aucun trajet departure de ",ville);
+
+    console.log("       -----------------------           ");
+    
+}
+
 // afficher le menu 
 do {
     
@@ -381,16 +402,16 @@ do {
             AcheterTicket();
             break;
         case 3:
-        AfficherTickets();
+            AfficherTickets();
             break;
         case 4:
-        AnnulerTicket();
+            AnnulerTicket();
             break;
         case 5:
-        RechercherTicket();
+            RechercherTicket();
             break;
         case 6:
-        console.log("Filtrer les trajets");
+            FiltrerTrajets();
             break;
         case 7:
         console.log("Trier les trajets");
