@@ -298,7 +298,7 @@ function AfficherTickets(){
     }
 }
 
-
+// une fonction pour annuler le ticket
 function AnnulerTicket(){
     let IdT = Number(prompt("Identifiant du ticket : "))
     let isExist = false ;
@@ -327,6 +327,31 @@ function AnnulerTicket(){
     }
 
     if(!isExist) console.log("Ticket introuvable.");
+}
+
+
+// une fonction pour Chercher un ticket au nom du passager
+function  RechercherTicket(){
+    let nom = prompt("Nom du passager : ")
+    let isExist = false 
+
+    for(let t of tickets){
+        if(t.passengerName === nom){
+
+            console.log("                ");
+            console.log(`Ticket #${t.id}`);
+            console.log(`Passager : ${t.passengerName}`);
+            let departure = getTrajet(t.tripId).departure 
+            let destination = getTrajet(t.tripId).destination
+            console.log(`Trajet : ${departure} --> ${destination}`);
+            console.log(`Place : ${t.seatNumber}`);
+            console.log(`Prix : ${t.price} DH`);
+
+            isExist = true
+        }
+    }
+
+    if (!isExist) console.log("il n'y a aucun ticket avec ce nom de passager");
 }
 
 // afficher le menu 
@@ -362,7 +387,7 @@ do {
         AnnulerTicket();
             break;
         case 5:
-        console.log("Rechercher un ticket");
+        RechercherTicket();
             break;
         case 6:
         console.log("Filtrer les trajets");
