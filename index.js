@@ -361,7 +361,7 @@ function FiltrerTrajets(){
     let isExist = false ;
 
     console.log("       -----------------------           ");
-    
+
     for(let T of trips){
         if(T.departure === ville){
             console.log(`${T.departure} --> ${T.destination} : ${T.price} DH`);
@@ -373,6 +373,30 @@ function FiltrerTrajets(){
 
     console.log("       -----------------------           ");
     
+}
+
+
+// Trier les les tragets par ordre croissant
+function OrderCroissant(){
+    for(let x of trips){
+        for(let i=0 ; i<trips.length-1 ; i++){
+            if (trips[i].price > trips[i+1].price ) {
+                let min = trips[i]
+                trips[i] = trips[i+1]
+                trips[i+1] = min 
+            }
+        }
+    }
+
+}
+
+
+// Trier et afficher les trajets par prix croissant
+function TrierTrajets(){
+    OrderCroissant()
+    console.log("--------------------------------");
+    for(let T of trips) console.log(`${T.departure} --> ${T.destination} : ${T.price} DH`);
+    console.log("--------------------------------");
 }
 
 // afficher le menu 
@@ -414,7 +438,7 @@ do {
             FiltrerTrajets();
             break;
         case 7:
-        console.log("Trier les trajets");
+            TrierTrajets();
             break;
         case 0:
         console.log("Vous avez quitté le programme");
