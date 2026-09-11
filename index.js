@@ -220,8 +220,8 @@ function getNumPlace(IdT){
 
 // une fonction pour acheter un ticket
 function AcheterTicket(){
-    let nom = prompt("entrer votre nom :")
-    let IdT = Number(prompt("entrer Identifiant du trajet :"))
+    let nom = prompt("entrer votre nom :").trim().toLowerCase()
+    let IdT = Number(prompt("entrer Identifiant du trajet :").trim())
     let ticket = {} ;
     let isExist = false ;
 
@@ -332,11 +332,11 @@ function AnnulerTicket(){
 
 // une fonction pour Chercher un ticket au nom du passager
 function  RechercherTicket(){
-    let nom = prompt("Nom du passager : ")
+    let nom = prompt("Nom du passager : ").toLowerCase().trim()
     let isExist = false 
 
     for(let t of tickets){
-        if(t.passengerName === nom){
+        if(t.passengerName.toLowerCase() === nom){
 
             console.log("                ");
             console.log(`Ticket #${t.id}`);
@@ -357,13 +357,13 @@ function  RechercherTicket(){
 
 // une fonction pour Filtrer les trajets à partir de la ville de départ
 function FiltrerTrajets(){
-    const ville = prompt("Ville de départ : ")
+    const ville = prompt("Ville de départ : ").toLowerCase().trim()
     let isExist = false ;
 
     console.log("       -----------------------           ");
 
     for(let T of trips){
-        if(T.departure === ville){
+        if(T.departure.toLowerCase() === ville){
             console.log(`${T.departure} --> ${T.destination} : ${T.price} DH`);
             isExist = true
         }
@@ -446,8 +446,8 @@ function Statistiques(){
         }
     
         console.log("   -----------------------------------------------------   ");
-        console.log("Nombre total de tickets vendus : " , countNumTickets + "tickets");
-        console.log("Chiffre d'affaires total :  " + prixTotal + "DH");
+        console.log("Nombre total de tickets vendus : " , countNumTickets + " tickets");
+        console.log("Chiffre d'affaires total :  " + prixTotal + " DH");
         console.log("Trajet le plus vendu : ");
         console.log(`                        ${getTrajet(tripIdOfMax).departure} --> ${getTrajet(tripIdOfMax).destination}`);
         console.log(`                        ${max} tickets vendus`);  
@@ -496,7 +496,7 @@ function SwitchFunctions(choix){
 }
 
 
-// afficher le menu principale
+// afficher le menu 
 do {
     
     console.log("===================================================");
