@@ -399,6 +399,65 @@ function TrierTrajets(){
     console.log("--------------------------------");
 }
 
+// retourner le nombre de tickets vendu de chaque trajets
+function countTickets(){
+    let array = []
+    let count = 0
+    for(let x of tickets){
+        count = 0
+        let index = array.findIndex(element => element.tripId === x.tripId)
+        if(index < 0){
+            for(let y of tickets){
+                if(x.tripId === y.tripId){
+                    count ++
+                }
+            }
+            array.push({tripId : x.tripId , numberOfTickets : count})
+        }
+    }
+
+    return array
+}
+
+
+// Statistiques : calculer le nombre total de tickets et chiffre d'affaires total ou bien trouver trajet le plus vendu
+function Statistiques(){
+    if(0 < tickets.length){
+
+        let countNumTickets = 0
+        let prixTotal = 0
+        let array = countTickets()
+        let max = array[0].numberOfTickets
+        let tripIdOfMax = array[0].tripId;
+        for(let i in tickets){
+            countNumTickets ++
+            prixTotal += tickets[i].price
+            
+            if(i < array.length){
+    
+                for(let j=1 ; j<array.length ; j++){
+                    if(max < array[j].numberOfTickets){
+                        max = array[j].numberOfTickets
+                        tripIdOfMax = array[j].tripId
+                    }
+                }
+            }
+    
+        }
+    
+        console.log("   -----------------------------------------------------   ");
+        console.log("Nombre total de tickets vendus : " , countNumTickets + "tickets");
+        console.log("Chiffre d'affaires total :  " + prixTotal + "DH");
+        console.log("Trajet le plus vendu : ");
+        console.log(`                        ${getTrajet(tripIdOfMax).departure} --> ${getTrajet(tripIdOfMax).destination}`);
+        console.log(`                        ${max} tickets vendus`);  
+        console.log("   -----------------------------------------------------   ");
+
+    }else{
+        console.log("li n'y a aucun ticket vendu");
+    }
+    
+}
 // afficher le menu 
 do {
     
@@ -413,6 +472,7 @@ do {
     console.log("5. Rechercher un ticket");
     console.log("6. Filtrer les trajets");
     console.log("7. Trier les trajets");
+    console.log("8. Voir les Statistiques");
     console.log("0. Quitter");
     console.log("                                                   ");
     
@@ -439,6 +499,9 @@ do {
             break;
         case 7:
             TrierTrajets();
+            break;
+        case 8:
+            Statistiques();
             break;
         case 0:
         console.log("Vous avez quitté le programme");
