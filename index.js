@@ -458,26 +458,9 @@ function Statistiques(){
     }
     
 }
-// afficher le menu 
-do {
-    
-    console.log("===================================================");
-    console.log("                 RAILWAY MANAGER                   ");
-    console.log("===================================================");
-    console.log("                                                   ");
-    console.log("1. Afficher les trajets");
-    console.log("2. Acheter un ticket");
-    console.log("3. Afficher les tickets");
-    console.log("4. Annuler un ticket");
-    console.log("5. Rechercher un ticket");
-    console.log("6. Filtrer les trajets");
-    console.log("7. Trier les trajets");
-    console.log("8. Voir les Statistiques");
-    console.log("0. Quitter");
-    console.log("                                                   ");
-    
-    choix = Number(prompt("votre choix :"))
-    
+
+// ce fonction contient switxh qui return une fonction d'apres le choix d'étulisateure 
+function SwitchFunctions(choix){
     switch (choix) {
         case 1:
             AfficherTrajets();
@@ -507,8 +490,39 @@ do {
         console.log("Vous avez quitté le programme");
             break;
         default:
-            console.log("choisez un nombre entre 0 et 7");
+            console.log("choisez un nombre entre 0 et 8");
             break;
     }
+}
 
-} while (choix != 0);
+
+// afficher le menu principale
+do {
+    
+    console.log("===================================================");
+    console.log("                 RAILWAY MANAGER                   ");
+    console.log("===================================================");
+    console.log("                                                   ");
+    console.log("          1. Afficher les trajets                  ");
+    console.log("          2. Acheter un ticket                     ");
+    console.log("          3. Afficher les tickets                  ");
+    console.log("          4. Annuler un ticket                     ");
+    console.log("          5. Rechercher un ticket                  ");
+    console.log("          6. Filtrer les trajets                   ");
+    console.log("          7. Trier les trajets                     ");
+    console.log("          8. Voir les Statistiques                 ");
+    console.log("          0. Quitter                               ");
+    console.log("                                                   ");
+    
+    choix = prompt("votre choix : ").trim()
+
+    if(choix != "" ){
+        choix = Number(choix)
+        if(0 <= choix &&  choix <= 8 ){
+            SwitchFunctions(choix)
+        }else{
+            console.log("choisez un nombre entre 0 et 8");
+        }
+    }
+    
+} while (choix !== 0);
