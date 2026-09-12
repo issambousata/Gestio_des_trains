@@ -222,7 +222,9 @@ function getNumPlace(IdT){
 function createIdTicket(){
     for(let i in tickets){
         if(tickets[i] === "ticket annuler"){
-            return i+1
+            tickets.splice(i , 1)
+            i ++
+            return i
         }
     }
     return tickets.length+1
@@ -231,22 +233,30 @@ function createIdTicket(){
 // trouver une place vide pour un passager
 function getPlace(idT){
     let place = 1 
-    for(let x of tickets){
-        if(x.tripId === idT){
-            if(x.seatNumber != place){
-                return place
+    
+    let ticketsMT = tickets.filter(T => T.tripId === idT)
+    if(0 < ticketsMT.length){
+        for(let i in ticketsMT){
+            
+            let index =ticketsMT.findIndex( t => t.seatNumber == place )
+            if(0 <= index){
+                place ++
             }else{
-                place ++ 
-            }
+                return place 
+            } 
+             
         }
+        return place
+    }else{
+        return place
     }
-    return place
+    
 }
 
 // une fonction pour acheter un ticket
 function AcheterTicket(){
     let nom = prompt("entrer votre nom :").trim().toLowerCase()
-    let IdT = Number(prompt("entrer Identifiant du trajet :").trim())
+    let IdT = Number(prompt("entrer Identifiant du trajet :"))
     let ticket = {} ;
     let isExist = false ;
 
